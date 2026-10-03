@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cmd6v2itr8iv"]
+
+[node name="Node2D" type="Node2D" unique_id=1682775658]
+
+[node name="Label" type="Label" parent="." unique_id=114259700]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "The web build is working!!!"
