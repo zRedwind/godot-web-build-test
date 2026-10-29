@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://p4x3qtpu40h"]
+
+[ext_resource type="Script" uid="uid://cpwku0xifatmi" path="res://file_config_scenes/file_handling_interface.gd" id="1_bkn3s"]
+
+[node name="file_handling_interface" type="Control" unique_id=554090821 node_paths=PackedStringArray("file_text", "selectable_files", "new_file_name_input")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_bkn3s")
+file_text = NodePath("VBoxContainer/file_text")
+selectable_files = NodePath("VBoxContainer/select_file_hbox/selectable_files")
+new_file_name_input = NodePath("VBoxContainer/new_file_container/HBoxContainer/new_file_name_input")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1243281514]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="new_file_container" type="VBoxContainer" parent="VBoxContainer" unique_id=206933043]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/new_file_container" unique_id=901929462]
+layout_mode = 2
+
+[node name="new_file_name_label" type="Label" parent="VBoxContainer/new_file_container/HBoxContainer" unique_id=2051476369]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Enter name:"
+
+[node name="new_file_name_input" type="LineEdit" parent="VBoxContainer/new_file_container/HBoxContainer" unique_id=511534364]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "File name"
+
+[node name="create_file" type="Button" parent="VBoxContainer" unique_id=1801873524]
+layout_mode = 2
+text = "Create new file"
+
+[node name="delete_file" type="Button" parent="VBoxContainer" unique_id=749916064]
+layout_mode = 2
+text = "Delete file"
+
+[node name="select_file_hbox" type="HBoxContainer" parent="VBoxContainer" unique_id=847955360]
+layout_mode = 2
+
+[node name="current_file_label" type="Label" parent="VBoxContainer/select_file_hbox" unique_id=1338682159]
+layout_mode = 2
+text = "Select file:"
+
+[node name="selectable_files" type="OptionButton" parent="VBoxContainer/select_file_hbox" unique_id=440491643]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "none"
+popup/item_0/id = 0
+popup/item_1/text = "test1"
+popup/item_1/id = 1
+popup/item_2/text = "test2"
+popup/item_2/id = 2
+
+[node name="file_text" type="RichTextLabel" parent="VBoxContainer" unique_id=2022584847]
+custom_minimum_size = Vector2(0, 250)
+custom_maximum_size = Vector2(-1, 500)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/file_text" unique_id=1247279482]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.6039216)
+
+[connection signal="pressed" from="VBoxContainer/create_file" to="." method="create_file"]
+[connection signal="pressed" from="VBoxContainer/delete_file" to="." method="delete_file"]
+[connection signal="item_selected" from="VBoxContainer/select_file_hbox/selectable_files" to="." method="new_file_selected"]

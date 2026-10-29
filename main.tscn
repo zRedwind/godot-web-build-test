@@ -1,8 +1,63 @@
 [gd_scene format=3 uid="uid://cmd6v2itr8iv"]
 
-[node name="Node2D" type="Node2D" unique_id=1682775658]
+[ext_resource type="Script" uid="uid://bhblrwchh6me7" path="res://main.gd" id="1_h2yge"]
+[ext_resource type="PackedScene" uid="uid://c1h5l1hxe1rx2" path="res://file_config_scenes/input_text_field.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://p4x3qtpu40h" path="res://file_config_scenes/file_handling_interface.tscn" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bpu6e5vkyq5j2" path="res://file_config_scenes/config_manager.gd" id="4_1bvp3"]
 
-[node name="Label" type="Label" parent="." unique_id=114259700]
+[node name="Node2D" type="Node2D" unique_id=1682775658 node_paths=PackedStringArray("main_menu_canvas", "file_test_canvas")]
+script = ExtResource("1_h2yge")
+main_menu_canvas = NodePath("main_menu_canvas")
+file_test_canvas = NodePath("file_test_canvas")
+
+[node name="main_menu_canvas" type="CanvasLayer" parent="." unique_id=1653208109]
+
+[node name="main_menu" type="Control" parent="main_menu_canvas" unique_id=1083171570]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="main_menu_canvas/main_menu" unique_id=114259700]
+layout_mode = 0
+offset_right = 205.0
 offset_bottom = 23.0
 text = "The web build is working!!!"
+
+[node name="file_test_button" type="Button" parent="main_menu_canvas/main_menu" unique_id=1916157105]
+layout_mode = 0
+offset_top = 36.0
+offset_right = 118.0
+offset_bottom = 67.0
+text = "Go to File Test"
+
+[node name="file_test_canvas" type="CanvasLayer" parent="." unique_id=921343345]
+visible = false
+
+[node name="input_text_field" parent="file_test_canvas" unique_id=683401456 instance=ExtResource("1_ig7tw")]
+metadata/_edit_use_anchors_ = true
+
+[node name="file_handling_interface" parent="file_test_canvas" unique_id=554090821 instance=ExtResource("2_0xm2m")]
+offset_left = 266.0
+offset_right = 306.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="file_test_canvas" unique_id=373950862]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "File testing"
+metadata/_edit_use_anchors_ = true
+
+[node name="main_menu_button" type="Button" parent="file_test_canvas" unique_id=89508328]
+offset_left = 1.0
+offset_top = 30.0
+offset_right = 119.0
+offset_bottom = 61.0
+text = "Go to Main Menu"
+metadata/_edit_use_anchors_ = true
+
+[node name="file_config_manager" type="Node" parent="file_test_canvas" unique_id=1311592568]
+script = ExtResource("4_1bvp3")
+
+[connection signal="pressed" from="main_menu_canvas/main_menu/file_test_button" to="." method="show_file_test"]
+[connection signal="pressed" from="file_test_canvas/main_menu_button" to="." method="show_main_menu"]

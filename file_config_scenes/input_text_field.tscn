@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://c1h5l1hxe1rx2"]
+
+[ext_resource type="Script" uid="uid://cpdwi2vd4tk1a" path="res://file_config_scenes/input_text_field.gd" id="1_ukgys"]
+
+[sub_resource type="GDScript" id="GDScript_rvrdd"]
+script/source = "extends LineEdit
+
+func clear_field():
+	text = \"\"
+"
+
+[sub_resource type="GDScript" id="GDScript_0xm2m"]
+script/source = "extends Button
+
+@export var input_text_field: LineEdit
+@export var output_text: Label
+
+signal submit_text(submitted_text: String)
+
+func _on_pressed() -> void:
+	var user_input = input_text_field.text
+	if user_input == \"\":
+		output_text.text = \"No text entered\"
+	else:
+		submit_text.emit(user_input)
+		input_text_field.clear_field()
+		output_text.text = \"Entered text: \" + user_input
+"
+
+[node name="input_text_field" type="Control" unique_id=683401456]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 78.0
+offset_right = 40.0
+offset_bottom = 118.0
+script = ExtResource("1_ukgys")
+
+[node name="input_text" type="Label" parent="." unique_id=575336947]
+layout_mode = 0
+offset_right = 242.0
+offset_bottom = 23.0
+text = "Input text here and press enter"
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=2121150799]
+layout_mode = 0
+offset_top = 26.0
+offset_right = 241.0
+offset_bottom = 71.0
+keep_editing_on_text_submit = true
+script = SubResource("GDScript_rvrdd")
+
+[node name="output_text" type="Label" parent="." unique_id=285827799]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 130.0
+offset_right = 108.0
+offset_bottom = 153.0
+text = "Entered text: "
+
+[node name="submit_button" type="Button" parent="." unique_id=743759830 node_paths=PackedStringArray("input_text_field", "output_text")]
+layout_mode = 0
+offset_top = 77.0
+offset_right = 129.0
+offset_bottom = 121.0
+text = "Submit"
+script = SubResource("GDScript_0xm2m")
+input_text_field = NodePath("../LineEdit")
+output_text = NodePath("../output_text")
+
+[connection signal="pressed" from="submit_button" to="submit_button" method="_on_pressed"]
+[connection signal="submit_text" from="submit_button" to="." method="write_text_to_file"]
